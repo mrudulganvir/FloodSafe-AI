@@ -1,0 +1,253 @@
+{
+  "graph_id": "bengaluru_sample",
+  "name": "Bengaluru Flood Simulation Network",
+  "description": "A 12-node, 18-edge sample road network based on the Silk Board to Vidhana Soudha corridor in Bengaluru, India. Node coordinates are real geographic locations. Edge lengths are approximate road distances in metres. This graph is used for offline demonstration and academic testing.",
+  "risk_penalty_m": 500,
+  "notes": "Risk penalty of 500 m is a simulation constant with no real-world safety meaning. It represents 'I would rather drive an extra 500 metres than use this risky road.'",
+
+  "nodes": [
+    {
+      "id": "N1",
+      "label": "Silk Board Junction",
+      "lat": 12.9177,
+      "lon": 77.6233,
+      "is_shelter": false,
+      "note": "Starting point — historically flood-prone due to low elevation near Bellandur Lake outflow"
+    },
+    {
+      "id": "N2",
+      "label": "BTM Layout 2nd Stage",
+      "lat": 12.9200,
+      "lon": 77.6100,
+      "is_shelter": false,
+      "note": "Residential neighbourhood, alternate western route"
+    },
+    {
+      "id": "N3",
+      "label": "Koramangala 5th Block",
+      "lat": 12.9352,
+      "lon": 77.6245,
+      "is_shelter": false,
+      "note": "Major Koramangala junction"
+    },
+    {
+      "id": "N4",
+      "label": "Koramangala 1st Block",
+      "lat": 12.9416,
+      "lon": 77.6186,
+      "is_shelter": false,
+      "note": "Inner Koramangala road intersection"
+    },
+    {
+      "id": "N5",
+      "label": "Sony World Signal",
+      "lat": 12.9457,
+      "lon": 77.6356,
+      "is_shelter": false,
+      "note": "Key junction connecting Koramangala to Domlur and Indiranagar"
+    },
+    {
+      "id": "N6",
+      "label": "Domlur Junction",
+      "lat": 12.9592,
+      "lon": 77.6391,
+      "is_shelter": false,
+      "note": "Domlur flyover area — prone to waterlogging under the flyover"
+    },
+    {
+      "id": "N7",
+      "label": "Indiranagar 100ft Road",
+      "lat": 12.9784,
+      "lon": 77.6408,
+      "is_shelter": false,
+      "note": "100 feet road, Indiranagar — northern route option"
+    },
+    {
+      "id": "N8",
+      "label": "CMH Road Junction",
+      "lat": 12.9663,
+      "lon": 77.6422,
+      "is_shelter": false,
+      "note": "Central Indiranagar junction"
+    },
+    {
+      "id": "N9",
+      "label": "Ulsoor Lake Junction",
+      "lat": 12.9791,
+      "lon": 77.6185,
+      "is_shelter": false,
+      "note": "Near Ulsoor Lake — can flood during heavy rain"
+    },
+    {
+      "id": "N10",
+      "label": "MG Road Metro Station",
+      "lat": 12.9716,
+      "lon": 77.6197,
+      "is_shelter": false,
+      "note": "M.G. Road metro station junction"
+    },
+    {
+      "id": "N11",
+      "label": "Cubbon Park North Gate",
+      "lat": 12.9763,
+      "lon": 77.5929,
+      "is_shelter": false,
+      "note": "Cubbon Park area — elevated ground, generally safe"
+    },
+    {
+      "id": "N12",
+      "label": "Vidhana Soudha (Evacuation Shelter)",
+      "lat": 12.9797,
+      "lon": 77.5905,
+      "is_shelter": true,
+      "note": "SIMULATION DESTINATION ONLY. In a real emergency follow official guidance."
+    }
+  ],
+
+  "edges": [
+    {
+      "id": "E1",
+      "from": "N1",
+      "to":   "N2",
+      "length_m": 1464,
+      "bidirectional": true,
+      "label": "Silk Board to BTM (Inner Ring Road)"
+    },
+    {
+      "id": "E2",
+      "from": "N1",
+      "to":   "N3",
+      "length_m": 1951,
+      "bidirectional": true,
+      "label": "Silk Board to Koramangala 5th Block"
+    },
+    {
+      "id": "E3",
+      "from": "N2",
+      "to":   "N3",
+      "length_m": 2308,
+      "bidirectional": true,
+      "label": "BTM to Koramangala 5th (Intermediate Ring Road)"
+    },
+    {
+      "id": "E4",
+      "from": "N2",
+      "to":   "N4",
+      "length_m": 2577,
+      "bidirectional": true,
+      "label": "BTM to Koramangala 1st Block"
+    },
+    {
+      "id": "E5",
+      "from": "N3",
+      "to":   "N4",
+      "length_m": 960,
+      "bidirectional": true,
+      "label": "Koramangala 5th to 1st Block (internal road)"
+    },
+    {
+      "id": "E6",
+      "from": "N3",
+      "to":   "N5",
+      "length_m": 1677,
+      "bidirectional": true,
+      "label": "Koramangala 5th Block to Sony World"
+    },
+    {
+      "id": "E7",
+      "from": "N4",
+      "to":   "N5",
+      "length_m": 1898,
+      "bidirectional": true,
+      "label": "Koramangala 1st Block to Sony World (Intermediate Ring Rd)"
+    },
+    {
+      "id": "E8",
+      "from": "N5",
+      "to":   "N6",
+      "length_m": 1550,
+      "bidirectional": true,
+      "label": "Sony World to Domlur (Airport Road underpass route)"
+    },
+    {
+      "id": "E9",
+      "from": "N5",
+      "to":   "N8",
+      "length_m": 2400,
+      "bidirectional": true,
+      "label": "Sony World to CMH Road (Intermediate Ring Road north)"
+    },
+    {
+      "id": "E10",
+      "from": "N6",
+      "to":   "N7",
+      "length_m": 2143,
+      "bidirectional": true,
+      "label": "Domlur to Indiranagar 100ft Road"
+    },
+    {
+      "id": "E11",
+      "from": "N6",
+      "to":   "N8",
+      "length_m": 860,
+      "bidirectional": true,
+      "label": "Domlur to CMH Road (short connector)"
+    },
+    {
+      "id": "E12",
+      "from": "N7",
+      "to":   "N8",
+      "length_m": 1354,
+      "bidirectional": true,
+      "label": "100ft Road to CMH Road"
+    },
+    {
+      "id": "E13",
+      "from": "N7",
+      "to":   "N9",
+      "length_m": 2418,
+      "bidirectional": true,
+      "label": "Indiranagar 100ft to Ulsoor Lake Junction"
+    },
+    {
+      "id": "E14",
+      "from": "N8",
+      "to":   "N9",
+      "length_m": 2940,
+      "bidirectional": true,
+      "label": "CMH Road to Ulsoor (via Trinity Circle)"
+    },
+    {
+      "id": "E15",
+      "from": "N9",
+      "to":   "N10",
+      "length_m": 845,
+      "bidirectional": true,
+      "label": "Ulsoor to MG Road Metro"
+    },
+    {
+      "id": "E16",
+      "from": "N9",
+      "to":   "N11",
+      "length_m": 2792,
+      "bidirectional": true,
+      "label": "Ulsoor to Cubbon Park (Kasturba Road)"
+    },
+    {
+      "id": "E17",
+      "from": "N10",
+      "to":   "N11",
+      "length_m": 2951,
+      "bidirectional": true,
+      "label": "MG Road to Cubbon Park"
+    },
+    {
+      "id": "E18",
+      "from": "N11",
+      "to":   "N12",
+      "length_m": 460,
+      "bidirectional": true,
+      "label": "Cubbon Park to Vidhana Soudha"
+    }
+  ]
+}

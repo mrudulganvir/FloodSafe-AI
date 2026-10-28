@@ -1,0 +1,20 @@
+# FloodSafe AI — Backend Dependencies
+# Install with: pip install -r requirements.txt
+# (activate your venv first!)
+
+# Web framework and server
+fastapi==0.115.5
+uvicorn==0.32.1
+
+# Data validation (FastAPI uses this internally too)
+pydantic==2.10.2
+
+# Graph data structures (we use this to store nodes and edges)
+networkx==3.4.2
+
+# Testing
+pytest==8.3.3
+httpx==0.28.0          # lets pytest make real HTTP calls to FastAPI
+
+# OSMnx — added in Milestone 7 (real map support)
+# osmnx==1.9.3

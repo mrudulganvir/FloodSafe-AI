@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sample_1",
+    "name": "Clear Roads — Baseline",
+    "description": "No hazards. All roads are open. Use this scenario to compare the three algorithms on an unobstructed network. Notice how BFS minimises hops (not distance), while A* finds the lowest-cost route by combining real distance with a heuristic.",
+    "default_start": "N1",
+    "default_destination": "N12",
+    "hazards": {
+      "blocked": [],
+      "risky": []
+    },
+    "teaching_note": "Expected: BFS finds a 6-hop path. Greedy may find a longer path by always heading toward the destination. A* finds the minimum-cost path."
+  },
+  {
+    "id": "sample_2",
+    "name": "Domlur Underpass Flooded",
+    "description": "The Airport Road underpass at Domlur (N5-N8 direct link) is blocked by floodwater. Algorithms must find an alternative route through Domlur Junction (N6). This demonstrates how all three algorithms dynamically reroute around a single blocked road.",
+    "default_start": "N1",
+    "default_destination": "N12",
+    "hazards": {
+      "blocked": [["N5", "N8"]],
+      "risky": []
+    },
+    "teaching_note": "With N5-N8 blocked, algorithms must go through N6 (Domlur). Watch how BFS finds a longer hop path while A* finds the lowest-cost detour."
+  },
+  {
+    "id": "sample_3",
+    "name": "Eastern Flood Spreading",
+    "description": "Heavy flooding in the eastern corridor: the Domlur to Indiranagar road (N6-N7) is fully blocked by a canal overflow, and two roads approaching Domlur (N3-N5 and N5-N6) are risky due to waterlogging. Algorithms must weigh the penalty of risky roads versus longer but safer detours.",
+    "default_start": "N1",
+    "default_destination": "N12",
+    "hazards": {
+      "blocked": [["N6", "N7"]],
+      "risky": [["N3", "N5"], ["N5", "N6"]]
+    },
+    "teaching_note": "BFS ignores risk penalties and finds a hop-optimal path. A* accounts for the +500m penalty on risky roads and may prefer a longer but cheaper (risk-adjusted) route. Compare their total_cost vs total_distance_m values."
+  }
+]
