@@ -95,7 +95,7 @@ FloodSafe/
 ### 1. Clone the repository
 
 ```powershell
-git clone https://github.com/YOUR_mrudulganvir/FloodSafe-AI.git
+git clone https://github.com/mrudulganvir/FloodSafe-AI.git
 cd FloodSafe-AI
 ```
 
