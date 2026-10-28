@@ -1,246 +1,181 @@
 # FloodSafe AI 🌊
+### AI-Based Flood Evacuation Route Planning
 
-**AI-Based Flood Evacuation Route Planning and Risk-Aware Pathfinding System**
+Flooding can turn an ordinary road into a dangerous one. The shortest route to a shelter isn't always the best option when some roads are blocked or risky.
 
-> ⚠️ **Academic Disclaimer:** This is an educational simulation project.
-> It does NOT provide verified real-time flood data, real road-closure
-> information, or guaranteed-safe evacuation routes. Never rely on this
-> system during an actual emergency.
+**FloodSafe AI** is a web-based project that explores how different AI search algorithms can help find routes through a road network under simulated flood conditions. It lets you change the scenario, choose a starting point and destination, and compare the routes suggested by BFS, Greedy Best-First Search, and A*.
 
----
+## What can you do with it?
 
-## Problem Statement
+- View a road network on an interactive map.
+- Try different flood scenarios based on a sample Bengaluru neighbourhood.
+- Mark roads as blocked or risky where supported by the interface.
+- Compare the routes found by BFS, Greedy Best-First Search, and A*.
+- View route details such as distance, cost, explored nodes, and execution time.
+- See how changing road conditions affects the route each algorithm finds.
 
-During flooding, the geographically shortest route to an evacuation shelter
-may pass through flooded, blocked, or hazardous roads. Conventional shortest-
-distance navigation does not account for such dynamic risks.
+## Built with
 
-FloodSafe AI models a road network as a weighted graph and compares three
-AI search algorithms — BFS, Greedy Best-First Search, and A* — to find
-evacuation routes under user-defined simulated flood conditions.
+| Part | Technologies |
+|---|---|
+| Frontend | React, Vite, Leaflet |
+| Map data | OpenStreetMap |
+| Backend | Python, FastAPI |
+| Pathfinding | BFS, Greedy Best-First Search, A* |
+| Graph handling | NetworkX |
+| Testing | pytest |
 
----
+## How it works
 
-## Features
+The road network is represented as a graph: intersections are nodes, and roads connecting them are edges. Each road has a length and can be affected by a simulated hazard.
 
-- 🗺️ Interactive map (Leaflet + OpenStreetMap) with route overlays
-- 🚧 Mark individual road segments as **blocked** or **risky**
-- 🔄 Compare BFS, Greedy Best-First Search, and A* side by side
-- 📊 Metrics panel: distance, risk cost, nodes explored, execution time
-- 🎯 Pre-built sample scenarios (Bengaluru neighbourhood layout)
-- 🔁 Reset hazards and re-run instantly
-- 🗾 Optional: load a real OpenStreetMap road network (Milestone 7)
+When you select a starting point, destination, and flood scenario, the backend runs the selected algorithms and returns their routes and performance metrics. The frontend displays the results on the map so you can compare how each algorithm behaves.
 
----
+### The algorithms
 
-## Architecture
+**Breadth-First Search (BFS)**
 
-```
-Browser (React + Leaflet)
-        │  REST JSON (HTTP)
-FastAPI Backend (Python)
-        │
-    ┌───┴───────────────┐
-    │                   │
-graph_service      algorithms/
-hazard_service     ├── bfs.py
-route_service      ├── greedy_best_first.py
-                   └── astar.py
-        │
-  data/sample_graph.json   ← Bengaluru neighbourhood (offline)
-  data/scenarios.json      ← Pre-built flood scenarios
-```
+BFS explores the graph level by level and finds a path with the fewest road segments. It doesn't necessarily find the route with the least physical distance or risk-adjusted cost.
 
----
+**Greedy Best-First Search**
 
-## Folder Structure
+Greedy search uses a heuristic to prioritise nodes that appear closer to the destination. It can find a route quickly, but it doesn't guarantee the lowest-cost route.
 
-```
+**A* Search**
+
+A* considers both the cost accumulated so far and an estimate of the cost remaining. With a suitable admissible heuristic and the project's cost model, it can find a minimum-cost route.
+
+## How road hazards affect routing
+
+The project uses a simple cost model to represent road conditions:
+
+| Road condition | Effect |
+|---|---|
+| Normal | Cost equals the road length |
+| Risky | Road length plus a simulated 500 m penalty |
+| Blocked | Road cannot be used |
+
+The 500 m penalty is only a value chosen for this simulation. It does not represent a real measurement of flood danger.
+
+## Project structure
+
+```text
 FloodSafe/
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # FastAPI application
-│   │   ├── api/
-│   │   │   ├── routes.py        # /routes/compare endpoint
-│   │   │   └── scenarios.py     # /scenarios endpoints
-│   │   ├── models/
-│   │   │   └── schemas.py       # Pydantic request/response types
-│   │   ├── services/
-│   │   │   ├── graph_service.py
-│   │   │   ├── hazard_service.py
-│   │   │   └── route_service.py
-│   │   ├── algorithms/
-│   │   │   ├── bfs.py
-│   │   │   ├── greedy_best_first.py
-│   │   │   └── astar.py
-│   │   └── data/
-│   │       ├── sample_graph.json
-│   │       └── scenarios.json
+│   │   ├── algorithms/     # BFS, Greedy and A*
+│   │   ├── api/            # API endpoints
+│   │   ├── data/           # Road graph and scenarios
+│   │   ├── models/         # Request and response models
+│   │   ├── services/       # Graph, hazard and route logic
+│   │   └── main.py
 │   ├── tests/
 │   ├── requirements.txt
 │   └── pytest.ini
 ├── frontend/
-│   └── src/
-│       ├── components/
-│       ├── services/
-│       ├── App.jsx
-│       └── main.jsx
-├── venv/                        # Python virtual environment (not in Git)
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
 ├── .gitignore
 └── README.md
 ```
 
----
+## Getting started
 
-## Windows Installation
+### Requirements
 
-### Prerequisites (already on your machine)
-- Python 3.12+
-- Node.js v24+
+- Python 3.12 or later
+- Node.js and npm
 - Git
 
-### 1. Clone / open the project
+### 1. Clone the repository
+
 ```powershell
-cd "c:\Users\heymr\OneDrive\Desktop\mruuuu\5th sem\ai\FloodSafe"
+git clone https://github.com/YOUR_mrudulganvir/FloodSafe-AI.git
+cd FloodSafe-AI
 ```
 
-### 2. Activate the Python virtual environment
+Replace `YOUR_USERNAME` with your GitHub username.
+
+### 2. Set up the backend
+
+Create and activate a virtual environment from the project root:
+
 ```powershell
+python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
-Your terminal prompt should now start with `(venv)`.
 
-> If you see an error about execution policy, run once:
-> `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser`
+Install the Python dependencies:
 
-### 3. Install backend packages (first time only)
 ```powershell
 pip install -r backend\requirements.txt
 ```
 
-### 4. Install frontend packages (first time only)
+Start the backend:
+
+```powershell
+cd backend
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+The API will be available at `http://localhost:8000`.
+You can explore its interactive documentation at `http://localhost:8000/docs`.
+
+### 3. Set up the frontend
+
+Open a **second terminal** in the project root and run:
+
 ```powershell
 cd frontend
 npm install
-cd ..
-```
-
----
-
-## Running the Application
-
-### Backend (Terminal 1)
-```powershell
-.\venv\Scripts\Activate.ps1
-cd backend
-uvicorn app.main:app --reload --port 8000
-```
-Visit: http://localhost:8000/docs — interactive API documentation
-
-### Frontend (Terminal 2)
-```powershell
-cd frontend
 npm run dev
 ```
-Visit: http://localhost:5173 — the FloodSafe dashboard
 
----
+Open the local URL printed by Vite, usually `http://localhost:5173`.
 
-## Running Tests
+Keep both terminals running while using the application.
+
+## Running the tests
+
+From the project root, activate the virtual environment if it isn't already active, then run:
+
 ```powershell
-.\venv\Scripts\Activate.ps1
 cd backend
-pytest tests/ -v
+python -m pytest tests/ -v
 ```
 
----
+The tests cover the search algorithms, graph handling, route comparison, and API behaviour.
 
-## API Endpoints
+## API endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/health` | Server health check |
-| GET | `/api/scenarios` | List all sample scenarios |
-| GET | `/api/scenarios/{id}` | Get a specific scenario |
-| POST | `/api/routes/compare` | Compare algorithms on a graph |
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/health` | Check whether the backend is running |
+| GET | `/api/scenarios` | List available scenarios |
+| GET | `/api/scenarios/{id}` | Get details for a scenario |
+| POST | `/api/routes/compare` | Compare selected algorithms |
 
-### Example: Compare Routes
-**POST** `/api/routes/compare`
-```json
-{
-  "scenario_id": "bengaluru_2",
-  "start_node": "N1",
-  "destination_node": "N12",
-  "hazards": {
-    "blocked": [["N5", "N6"]],
-    "risky":   [["N3", "N7"]]
-  },
-  "algorithms": ["bfs", "greedy", "astar"]
-}
-```
+## Current limitations
 
----
+- Flood conditions and road hazards are simulated.
+- The sample road network is not a verified live map of road conditions.
+- The system does not receive confirmed real-time flood warnings or road closures.
+- BFS minimises the number of edges, not physical distance or risk-adjusted cost.
+- A route returned by the application is not a guarantee of safety.
 
-## Algorithm Explanations
+## Possible future improvements
 
-### BFS (Breadth-First Search)
-Explores all neighbours at the current hop distance before moving further.
-Finds the path with the **fewest road segments**, not the shortest distance.
+- Compare additional algorithms, such as Dijkstra's algorithm.
+- Add more road networks and flood scenarios.
+- Explore integration with reliable, verified live hazard data.
+- Add route export options such as GeoJSON.
 
-### Greedy Best-First Search
-Always expands the node that looks closest to the destination (straight-line
-distance). Fast but can miss optimal routes by following a misleading direction.
+## Credits
 
-### A* Search
-Combines real accumulated cost `g(n)` with a heuristic estimate `h(n)`.
-Finds the **optimal cost path** when the heuristic never overestimates the
-remaining cost (admissibility condition).
+Map data and map services are provided by [OpenStreetMap](https://www.openstreetmap.org/copyright). OpenStreetMap data is available under the Open Database License (ODbL).
 
----
-
-## Sample Scenarios
-
-*(Filled in during Milestone 2 — Bengaluru neighbourhood graph)*
-
----
-
-## Cost Model
-
-```
-traversal_cost(edge) =
-    ∞              if edge is BLOCKED
-    length_m + 500 if edge is RISKY      (500 m = simulation penalty)
-    length_m       otherwise
-```
-
-The 500 m penalty is a simulation constant with no real-world safety meaning.
-
----
-
-## Known Limitations
-
-- Risk penalties are simulated values, not real flood probability data
-- OpenStreetMap data is not real-time (not verified live road closures)
-- BFS optimality is for hop count only, not physical distance
-- The system is a demonstration tool, not a certified emergency system
-
----
-
-## Attribution
-
-Map data © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright),
-available under the [Open Database License](https://opendatacommons.org/licenses/odbl/).
-
----
-
-## Future Improvements
-
-- Dijkstra's algorithm comparison
-- Bidirectional A*
-- Real-time flood data integration (via government APIs)
-- Mobile-responsive layout
-- Route export as GeoJSON / KML
-
----
-
-*Built as an academic mini-project for the AI course, 5th Semester, Computer Engineering.*
